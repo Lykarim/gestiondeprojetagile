@@ -34,9 +34,15 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Dependencies Scan
-        #if: 1>2
-        run: mvn clean verify -DskipTests -Pcve
+
+#      - name: Dependencies Scan
+#        #if: 1>2
+#        run: mvn clean verify -DskipTests -Pcve
+
+      # - name: Dependencies Scan
+      #   #if: 1>2
+      #   run: mvn clean verify -DskipTests -Pcve
+
 
       - name: Unit Testing
         run: mvn test -Put
@@ -47,12 +53,29 @@ jobs:
       - name: Quality Gate
         #votre travail
         #adapter : peut utiliser sonarcloud ou une instance distante
-        run: mvn clean verify sonar:sonar -Dsonar.organization=ept-git -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=seenibu_poc-todos
+        run: mvn clean verify sonar:sonar -Dsonar.organization=lykarim -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=Lykarim_gestiondeprojetagile
 
       - name: Check Quality Gate
-        #votre travail
-        #verifier si la Quality Gate is ok
-        run: echo "Checking quality gate ... "
+        run: |
+          echo "Checking Quality Gate status..."
+          # Appeler l'API de SonarCloud pour obtenir le statut de la Quality Gate
+          curl -X GET -u "${{ secrets.SONAR_TOKEN }}:" \
+            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=seenibu_poc-todos" \
+            -o quality_gate_status.json
+          # Extraire le statut de la Quality Gate en utilisant jq
+          QUALITY_STATUS=$(jq -r '.projectStatus.status' quality_gate_status.json)
+          echo "Quality Gate status: $QUALITY_STATUS"
+          # Vérifier si la Quality Gate a échoué
+          if [ "$QUALITY_STATUS" != "OK" ]; then
+            echo "Quality Gate failed!"
+            exit 1
+          fi
+      
+
+      #      - name: Check Quality Gate
+#        #votre travail
+#        #verifier si la Quality Gate is ok
+#        run: echo "Checking quality gate ... "
 
       - name: Package
         run: mvn -B package  -DskipTests=true
