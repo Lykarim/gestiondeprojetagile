@@ -16,7 +16,6 @@ import sn.ept.git.seminaire.cicd.exceptions.ItemNotFoundException;
 import sn.ept.git.seminaire.cicd.mappers.TagMapper;
 import sn.ept.git.seminaire.cicd.repositories.TagRepository;
 import sn.ept.git.seminaire.cicd.services.impl.TagServiceImpl;
-import sn.ept.git.seminaire.cicd.utils.ExceptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class TagServiceImplTest {
+class TagServiceImplTest {
 
     @Mock
     private TagRepository repository;
@@ -43,7 +42,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testSaveNewTag() {
+    void testSaveNewTag() {
         // Given
         TagDTO dto = new TagDTO();
         dto.setName("Test Tag");
@@ -71,7 +70,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testSaveExistingTag() {
+    void testSaveExistingTag() {
         // Given
         TagDTO dto = new TagDTO();
         dto.setName("Existing Tag");
@@ -84,7 +83,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testDeleteExistingTag() {
+    void testDeleteExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
         Tag tagEntity = new Tag();
@@ -101,7 +100,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testDeleteNonExistingTag() {
+    void testDeleteNonExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
 
@@ -113,7 +112,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testFindByIdExistingTag() {
+    void testFindByIdExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
         Tag tagEntity = new Tag();
@@ -134,7 +133,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testFindByIdNonExistingTag() {
+    void testFindByIdNonExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
 
@@ -149,7 +148,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testFindAllTags() {
+    void testFindAllTags() {
         // Given
         List<Tag> tags = new ArrayList<>();
         tags.add(new Tag());
@@ -168,7 +167,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testFindAllTagsPageable() {
+    void testFindAllTagsPageable() {
         // Given
         List<Tag> tags = new ArrayList<>();
         tags.add(new Tag());
@@ -189,7 +188,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testUpdateExistingTag() {
+    void testUpdateExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
         TagDTO dto = new TagDTO();
@@ -220,7 +219,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testUpdateNonExistingTag() {
+    void testUpdateNonExistingTag() {
         // Given
         String uuid = UUID.randomUUID().toString();
         TagDTO dto = new TagDTO();
@@ -235,7 +234,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testUpdateTagWithExistingName() {
+    void testUpdateTagWithExistingName() {
         // Given
         String uuid = UUID.randomUUID().toString();
         TagDTO dto = new TagDTO();
@@ -256,7 +255,7 @@ public class TagServiceImplTest {
     }
 
     @Test
-    public void testDeleteAllTags() {
+    void testDeleteAllTags() {
         // When
         tagService.deleteAll();
 

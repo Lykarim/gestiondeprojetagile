@@ -47,7 +47,7 @@ jobs:
       - name: Quality Gate
         #votre travail
         #adapter : peut utiliser sonarcloud ou une instance distante
-        run: mvn clean verify sonar:sonar -Dsonar.organization=ept-git -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=seenibu_poc-todos
+        run: mvn clean verify sonar:sonar -Dsonar.organization=lykarim -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=Lykarim_gestiondeprojetagile
 
       - name: Check Quality Gate
         run: |

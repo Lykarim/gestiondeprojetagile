@@ -49,7 +49,7 @@ public class CucumberStepTag {
     private String description;
     private Response response;
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    ;
+
     @Autowired
     private TagRepository tagRepository;
 

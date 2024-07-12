@@ -17,6 +17,7 @@ mvn test -Put
 ```sh
 mvn test -Pit
 ```
+
 # Dependencies analysis
 ```sh
 mvn clean verify -DskipTests -Pcve

@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @WebMvcTest(TagResource.class)
-public class TagResourceTest {
+class TagResourceTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,11 +41,11 @@ public class TagResourceTest {
 
     @BeforeEach
     public void setUp() {
-        initMocks(this);
+       initMocks(this);
     }
 
     @Test
-    public void testFindAllTags() throws Exception {
+    void testFindAllTags() throws Exception {
         // Mocking service method
         when(tagService.findAll(any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Collections.emptyList()));
@@ -58,7 +58,7 @@ public class TagResourceTest {
 
 
     @Test
-    public void testFindTagById() throws Exception {
+    void testFindTagById() throws Exception {
         // Création du mock TagDTO
         TagDTO mockTag = TagDTO.builder()
                 .id(TAG_ID)
@@ -76,7 +76,7 @@ public class TagResourceTest {
     }
 
     @Test
-    public void testCreateTag() throws Exception {
+    void testCreateTag() throws Exception {
 
         TagDTO mockTag = TagDTO.builder()
                 .id(TAG_ID)
@@ -97,7 +97,7 @@ public class TagResourceTest {
     }
 
     @Test
-    public void testDeleteTag() throws Exception {
+    void testDeleteTag() throws Exception {
         // Mocking service method
         doNothing().when(tagService).delete(TAG_ID);
 
@@ -106,7 +106,7 @@ public class TagResourceTest {
     }
 
     @Test
-    public void testUpdateTag() throws Exception {
+    void testUpdateTag() throws Exception {
 
         TagDTO mockTag = TagDTO.builder()
                 .id(TAG_ID)
