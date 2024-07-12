@@ -33,15 +33,15 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-<<<<<<< HEAD
+
 #      - name: Dependencies Scan
 #        if: 1 > 2
 #        run: mvn clean verify -DskipTests -Pcve
-=======
+
       # - name: Dependencies Scan
       #   if: 1 > 2
       #   run: mvn clean verify -DskipTests -Pcve
->>>>>>> 45bb1732e82c92c3e85af8e1362d1bd20dd2606c
+
 
       - name: Unit Testing
         run: mvn test -Put
