@@ -34,13 +34,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
 
-#      - name: Dependencies Scan
-#        if: 1 > 2
-#        run: mvn clean verify -DskipTests -Pcve
+      - name: Dependencies Scan
+        if: 1 > 2
+        run: mvn clean verify -DskipTests -Pcve
 
-      # - name: Dependencies Scan
-      #   if: 1 > 2
-      #   run: mvn clean verify -DskipTests -Pcve
 
 
       - name: Unit Testing
