@@ -34,12 +34,14 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-#
+
 #      - name: Dependencies Scan
 #        #if: 1>2
 #        run: mvn clean verify -DskipTests -Pcve
 
-
+      # - name: Dependencies Scan
+      #   #if: 1>2
+      #   run: mvn clean verify -DskipTests -Pcve
 
 
       - name: Unit Testing
@@ -58,7 +60,7 @@ jobs:
           echo "Checking Quality Gate status..."
           # Appeler l'API de SonarCloud pour obtenir le statut de la Quality Gate
           curl -X GET -u "${{ secrets.SONAR_TOKEN }}:" \
-            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=seenibu_poc-todos" \
+            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Lykarim_gestiondeprojetagile" \
             -o quality_gate_status.json
           # Extraire le statut de la Quality Gate en utilisant jq
           QUALITY_STATUS=$(jq -r '.projectStatus.status' quality_gate_status.json)
@@ -84,41 +86,27 @@ jobs:
         run: |
           docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{ secrets.DOCKER_TOKEN}} docker.io
 
-#      - name: Build Docker image
-#        run: |
-#          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
-#
-#      - name: Publish Docker image versions
-#        run: |
-#          docker push --all-tags  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}
-#
-#      - name: Deploy to Dev
-#        run: |
-#          ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
-#          docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
-#          if [ $(docker ps -q -f name=myapp) ]; then
-#            docker stop myapp && docker rm myapp
-#          fi
-#          docker run -d --name myapp -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
-#          EOF
-#
-#      - name: Wait for deploy to finish
-#        run: sleep 30
-#
-#      - name: Check deploy
-#        run: |
-#          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PORT }}/cicd/_health)
-#          if [ $RESPONSE -ne 200 ]; then
-#            echo "Deployment failed!"
-#            exit 1
-#          else
-#            CONTENT=$(curl -s http://${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PORT }}/cicd/_health)
-#            if [[ $CONTENT == *"Welcome to my Todo app"* ]]; then
-#              echo "Deployment successful!"
-#            else
-#              echo "Unexpected content: $CONTENT"
-#              exit 1
-#            fi
-#
-#
-#
+      - name: Build Docker image
+        run: |
+          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .   
+
+      - name: Publish Docker image versions
+        run: |
+          docker push --all-tags  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}
+
+      - name: Deploy to Dev
+        #votre travail
+        #se connecter a un serveur distant et deployer l'image docker que vous venez de builder
+        run: echo " 1) Login to my remote server ...\n 2) Stop docker container if running ... \n 3) Pull latest version and run it ... "
+
+      - name: Wait for deploy to finish
+        #votre travail
+        run: echo "Wait 30s ... "
+
+      - name: Check deploy
+        #verifier si le deploiement s'est bien passe
+        #votre travail
+        run: echo " 1) Run Get request <my_server_ip:my_port/cicd/_health> to check if service is running ...\n 2) Get request should return 200 with content <Welcome to my Todo app> ..."
+
+
+

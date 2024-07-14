@@ -54,7 +54,7 @@ jobs:
           echo "Checking Quality Gate status..."
           # Appeler l'API de SonarCloud pour obtenir le statut de la Quality Gate
           curl -X GET -u "${{ secrets.SONAR_TOKEN }}:" \
-            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=seenibu_poc-todos" \
+            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Lykarim_gestiondeprojetagile" \
             -o quality_gate_status.json
           # Extraire le statut de la Quality Gate en utilisant jq
           QUALITY_STATUS=$(jq -r '.projectStatus.status' quality_gate_status.json)
