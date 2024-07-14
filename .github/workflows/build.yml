@@ -77,19 +77,19 @@ jobs:
 #        #verifier si la Quality Gate is ok
 #        run: echo "Checking quality gate ... "
 #
-#      - name: Package
-#        run: mvn -B package  -DskipTests=true
-#
-#      - name: Login to Docker
-#        #votre travail
-#        #les trois prochaines etapes peuven etre fusionnees en une seule, le decoupe est volontaire pour plus de comprehension
-#        run: |
-#          docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{ secrets.DOCKER_TOKEN}} docker.io
-#
-#      - name: Build Docker image
-#        run: |
-#          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
-#
+      - name: Package
+        run: mvn -B package  -DskipTests=true
+
+      - name: Login to Docker
+        #votre travail
+        #les trois prochaines etapes peuven etre fusionnees en une seule, le decoupe est volontaire pour plus de comprehension
+        run: |
+          docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{ secrets.DOCKER_TOKEN}} docker.io
+
+      - name: Build Docker image
+        run: |
+          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
+
 #      - name: Publish Docker image versions
 #        run: |
 #          docker push --all-tags  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}
