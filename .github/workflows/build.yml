@@ -86,9 +86,9 @@ jobs:
         run: |
           docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{ secrets.DOCKER_TOKEN}} docker.io
 
-      - name: Build Docker image
-        run: |
-          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
+#      - name: Build Docker image
+#        run: |
+#          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
 
 #      - name: Publish Docker image versions
 #        run: |
