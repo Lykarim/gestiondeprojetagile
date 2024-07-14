@@ -50,4 +50,17 @@ jobs:
         run:  mvn clean verify sonar:sonar -Dsonar.organization=lykarim -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=Lykarim_gestiondeprojetagile
 
       - name: Check Quality Gate
-        run: echo "Checking if quality gate is met ... "
+        run: |
+          echo "Checking Quality Gate status..."
+          # Appeler l'API de SonarCloud pour obtenir le statut de la Quality Gate
+          curl -X GET -u "${{ secrets.SONAR_TOKEN }}:" \
+            "https://sonarcloud.io/api/qualitygates/project_status?projectKey=seenibu_poc-todos" \
+            -o quality_gate_status.json
+          # Extraire le statut de la Quality Gate en utilisant jq
+          QUALITY_STATUS=$(jq -r '.projectStatus.status' quality_gate_status.json)
+          echo "Quality Gate status: $QUALITY_STATUS"
+          # Vérifier si la Quality Gate a échoué
+          if [ "$QUALITY_STATUS" != "OK" ]; then
+            echo "Quality Gate failed!"
+            exit 1
+          fi
