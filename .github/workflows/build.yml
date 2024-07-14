@@ -88,12 +88,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }} -t  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest  .
+          docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE}}:${{ github.sha }} -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE}}:latest .
 
-#      - name: Publish Docker image versions
-#        run: |
-#          docker push --all-tags  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}
-#
+      - name: Publish Docker image versions
+        run: |
+          docker push --all-tags  ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}
+
 #      - name: Deploy to Dev
 #        #votre travail
 #        #se connecter a un serveur distant et deployer l'image docker que vous venez de builder
