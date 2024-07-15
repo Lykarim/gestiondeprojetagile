@@ -76,8 +76,8 @@ jobs:
 
       - name: Publish Docker image versions
         run: |
-          docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
-          docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest
+         docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
+         docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REGISTRY_IMAGE }}:latest
 
       - name: Set up SSH
         run: |
@@ -111,5 +111,6 @@ jobs:
           fi
         shell: /usr/bin/bash -e {0}
         env:
+
           JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.11-9/x64
           JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.11-9/x64
