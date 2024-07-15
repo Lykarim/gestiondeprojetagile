@@ -117,10 +117,14 @@ jobs:
       - name: Check deploy
         run: |
             echo "1) Run Get request to check if service is running..."
-            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.REMOTE_HOST }}:80/cicd/_health)
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://68.221.168.79:80/cicd/_health)
             if [ "$RESPONSE" -ne 200 ]; then
               echo "Deploy failed!"
               exit 1
             else
               echo "Deploy succeeded! Service is running."
             fi
+          shell: /usr/bin/bash -e {0}
+          env:
+            JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.11-9/x64
+            JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Zulu_jdk/17.0.11-9/x64
