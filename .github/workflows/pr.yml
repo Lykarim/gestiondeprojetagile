@@ -1,6 +1,8 @@
 name: Build-Analyze
 on:
   pull_request:
+    branches:
+      - test2
     types: [opened, synchronize, reopened]
 
 
