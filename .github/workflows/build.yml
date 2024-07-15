@@ -102,7 +102,7 @@ jobs:
       - name: Deploy to Dev
         run: |
           echo "1) Login to my remote server ..."
-          ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.REMOTE_PORT }} << EOF
+          ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
             echo "2) Stop docker container if running ..."
             docker stop myapp || true
             docker rm myapp || true
