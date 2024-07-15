@@ -96,20 +96,20 @@ jobs:
 
       - name: Set up SSH
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > kira.pem
-          chmod 600 kira.pem
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > kira.pem
+            chmod 600 kira.pem
 
-      - name: Deploy to Dev
-        run: |
-          echo "1) Login to my remote server ..."
-          ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.REMOTE_PORT }} << EOF
-            echo "2) Stop docker container if running ..."
-            docker stop myapp || true
-            docker rm myapp || true
-            echo "3) Pull latest version and run it ..."
-            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
-            docker run -d --name myapp -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
-          EOF
+            - name: Deploy to Dev
+              run: |
+                echo "1) Login to my remote server ..."
+                ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.REMOTE_PORT }} << 'EOF'
+                  echo "2) Stop docker container if running ..."
+                  docker stop myapp || true
+                  docker rm myapp || true
+                  echo "3) Pull latest version and run it ..."
+                  docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
+                  docker run -d --name myapp -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
+            EOF
 
       - name: Wait for deploy to finish
         run: sleep 30
