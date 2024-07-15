@@ -99,8 +99,8 @@ jobs:
             echo "${{ secrets.SSH_PRIVATE_KEY }}" > kira.pem
             chmod 600 kira.pem
 
-            - name: Deploy to Dev
-              run: |
+      - name: Deploy to Dev
+        run: |
                 echo "1) Login to my remote server ..."
                 ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.REMOTE_PORT }} << 'EOF'
                   echo "2) Stop docker container if running ..."
