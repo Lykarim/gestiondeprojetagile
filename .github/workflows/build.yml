@@ -89,11 +89,11 @@ jobs:
           echo "1) Login to my remote server ..."
           ssh -o StrictHostKeyChecking=no -i kira.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
             echo "2) Stop docker container if running ..."
-            sudo docker stop myapp || true
-            sudo docker rm myapp || true
+            sudo docker stop myapp1 || true
+            sudo docker rm myapp1 || true
             echo "3) Pull latest version and run it ..."
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
-            sudo docker run -d --name myapp -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
+            sudo docker run -d --name myapp1 -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
           EOF
 
       - name: Wait for deploy to finish
