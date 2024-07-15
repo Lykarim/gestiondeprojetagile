@@ -5,3 +5,4 @@ USER spring:spring
 #ARG JAR_FILE=target/*.jar
 COPY target/todos.jar todos.jar
 ENTRYPOINT ["java","-jar","/todos.jar"]
+EXPOSE 80
