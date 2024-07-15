@@ -116,11 +116,11 @@ jobs:
 
       - name: Check deploy
         run: |
-          echo "1) Run Get request <my_server_ip:my_port/cicd/_health> to check if service is running ..."
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.REMOTE_HOST }}:80/cicd/_health)
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo "Deploy failed!"
-            exit 1
-          else
-            echo "Deploy succeeded! Service is running."
-          fi
+            echo "1) Run Get request to check if service is running..."
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.REMOTE_HOST }}:80/cicd/_health)
+            if [ "$RESPONSE" -ne 200 ]; then
+              echo "Deploy failed!"
+              exit 1
+            else
+              echo "Deploy succeeded! Service is running."
+            fi
