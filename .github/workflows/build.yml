@@ -91,7 +91,7 @@ jobs:
             echo "2) Stop docker container if running ..."
             sudo docker stop myapp1 || true
             sudo docker rm myapp1 || true
-            echo "3) Pull latest version and run it ..."
+            echo "3) Pull latest version and run it ...."
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
             sudo docker run -d --name myapp1 -p 80:80 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
           EOF
